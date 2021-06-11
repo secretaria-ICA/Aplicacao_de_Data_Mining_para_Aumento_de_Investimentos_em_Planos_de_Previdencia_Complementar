@@ -1,0 +1,30 @@
+SELECT participante_fss.cod_emprs, 
+       empregado.num_rgorig_emprg, 
+       participante_fss.num_matr_partf, 
+       empregado.nom_emprg, 
+       mov_cont_partic_fss.mes_refer_mvcpr, 
+       mov_cont_partic_fss.ano_refer_mvcpr, 
+       sum(mov_cont_partic_fss.vlr_mvcpr), 
+       plano_beneficio_fss.dcr_plbnf, 
+       tipo_particip_fss.dcr_tppcp, 
+       sit_particip_fss.dcr_sitpar, 
+       verba_fss.dcr_vrbfss
+  FROM EMPREGADO, PARTICIPANTE_FSS, MOV_CONT_PARTIC_FSS, VERBA_FSS, ADESAO_PLANO_PARTIC_FSS, PLANO_BENEFICIO_FSS, TIPO_PARTICIP_FSS, SIT_PARTICIP_FSS 
+ WHERE plano_beneficio_fss.num_plbnf = adesao_plano_partic_fss.num_plbnf AND
+       empregado.cod_emprs = participante_fss.cod_emprs AND
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       mov_cont_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       participante_fss.num_matr_partf = empregado.num_matr_partf AND
+       mov_cont_partic_fss.num_matr_partf = empregado.num_matr_partf AND
+       verba_fss.num_vrbfss = mov_cont_partic_fss.num_vrbfss AND
+       adesao_plano_partic_fss.num_matr_partf = empregado.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = mov_cont_partic_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_plbnf in (4,6,10) AND
+       adesao_plano_partic_fss.cod_tppcp in (1,2,3,4) AND
+       verba_fss.dcr_vrbfss like '%AVULSA%' AND
+       adesao_plano_partic_fss.cod_tppcp = tipo_particip_fss.cod_tppcp AND
+       adesao_plano_partic_fss.cod_sitpar = sit_particip_fss.cod_sitpar AND
+       mov_cont_partic_fss.ano_refer_mvcpr = 2016
+GROUP BY participante_fss.cod_emprs, empregado.num_rgorig_emprg, participante_fss.num_matr_partf, empregado.nom_emprg, mov_cont_partic_fss.mes_refer_mvcpr, mov_cont_partic_fss.ano_refer_mvcpr, plano_beneficio_fss.dcr_plbnf, tipo_particip_fss.dcr_tppcp, sit_particip_fss.dcr_sitpar, verba_fss.dcr_vrbfss 
+ 

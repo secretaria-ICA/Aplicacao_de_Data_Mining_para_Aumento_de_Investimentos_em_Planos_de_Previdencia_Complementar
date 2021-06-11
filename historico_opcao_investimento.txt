@@ -1,0 +1,20 @@
+SELECT adesao_plano_partic_fss.num_matr_partf, 
+       empregado.num_cpf_emprg, 
+       empregado.nom_emprg, 
+       adesao_plano_partic_fss.num_plbnf, 
+       hist_perfil_partic_fss.cod_prfinv, 
+       perfil_investimento_fss.dcr_prfinv, 
+       hist_perfil_partic_fss.dat_inivig_hprfprt, 
+       hist_perfil_partic_fss.dat_fimvig_hprfprt
+  FROM HIST_PERFIL_PARTIC_FSS, PARTICIPANTE_FSS, EMPREGADO, ADESAO_PLANO_PARTIC_FSS, PERFIL_INVESTIMENTO_FSS 
+ WHERE empregado.cod_emprs = participante_fss.cod_emprs AND
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       empregado.num_matr_partf = participante_fss.num_matr_partf AND
+       participante_fss.num_matr_partf = hist_perfil_partic_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_plbnf = hist_perfil_partic_fss.num_plbnf AND
+       perfil_investimento_fss.cod_prfinv = hist_perfil_partic_fss.cod_prfinv AND
+       perfil_investimento_fss.num_plbnf = adesao_plano_partic_fss.num_plbnf AND
+       adesao_plano_partic_fss.dat_fim_adplpr is null AND
+       adesao_plano_partic_fss.num_plbnf in (4,6) AND
+       adesao_plano_partic_fss.cod_tppcp in (1,2,3,4) 

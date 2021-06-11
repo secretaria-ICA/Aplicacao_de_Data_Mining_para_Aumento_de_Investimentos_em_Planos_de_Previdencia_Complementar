@@ -1,0 +1,33 @@
+SELECT DISTINCT participante_fss.num_matr_partf, 	
+       empregado.num_cpf_emprg, 	
+       empregado.cod_emprs, 	
+       adesao_plano_partic_fss.cod_tppcp, 	
+       tipo_particip_fss.dcr_tppcp, 	
+       adesao_plano_partic_fss.cod_sitpar, 	
+       sit_particip_fss.dcr_sitpar, 	
+       adesao_plano_partic_fss.num_plbnf, 	
+       plano_beneficio_fss.dcr_plbnf, 	
+       hist_part_capit_fss.pct_ctb_hpcap, 	
+       verba_fss.num_vrbfss, 	
+       verba_fss.dcr_vrbfss, 	
+       hist_part_capit_fss.dat_inic_hpcap, 	
+       hist_part_capit_fss.dat_fim_hpcap	
+  FROM EMPREGADO, PARTICIPANTE_FSS, SIT_PARTICIP_FSS, TIPO_PARTICIP_FSS, ADESAO_PLANO_PARTIC_FSS, PLANO_BENEFICIO_FSS, HIST_PART_CAPIT_FSS, VERBA_FSS 	
+ WHERE empregado.cod_emprs = participante_fss.cod_emprs AND	
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND	
+       participante_fss.num_matr_partf = adesao_plano_partic_fss.num_matr_partf AND	
+       adesao_plano_partic_fss.cod_tppcp = tipo_particip_fss.cod_tppcp AND	
+       adesao_plano_partic_fss.cod_sitpar = sit_particip_fss.cod_sitpar AND	
+       adesao_plano_partic_fss.num_plbnf = plano_beneficio_fss.num_plbnf AND	
+       hist_part_capit_fss.num_matr_partf = participante_fss.num_matr_partf AND	
+       hist_part_capit_fss.num_plbnf = adesao_plano_partic_fss.num_plbnf AND	
+       verba_fss.num_tpcnt = hist_part_capit_fss.num_tpcnt AND	
+       verba_fss.num_plbnf = adesao_plano_partic_fss.num_plbnf AND	
+       adesao_plano_partic_fss.num_plbnf in (4,6,10) AND	
+       tipo_particip_fss.cod_tppcp in (1,2,3,4) AND	
+       adesao_plano_partic_fss.cod_sitpar in (1,2,4,7,8,9,10,11,16,22,23,24,27,30) AND	
+       hist_part_capit_fss.tip_movim_hpcap = 2 AND	
+       (verba_fss.num_vrbfss in (10023,10025,10085,10087,10160,10162,10235,10237,10297,10299,10301,10305,10373,10375,10401,10435,10437,10495,10497,12401,12501,14501,14601,16601,16701,19301,19305,19401,20018,20020,20080,20082,20155,20157,20227,20229,20292,20294,20301,20368,20370) OR	
+        verba_fss.num_vrbfss in (20401,20430,20432,20490,20492,22401,22501,24501,24601,26601,26701,29301,29401,40300,40302,50301,50305,50401,52401,52501,54501,54601,56601,56701,59301,59305,59401)) AND	
+       hist_part_capit_fss.dat_fim_hpcap is not null 	
+  	

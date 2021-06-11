@@ -1,0 +1,25 @@
+SELECT DISTINCT dependente.num_cpf_dpdte, 
+       dependente.nom_dpdte, 
+       emprg_dpdte.cod_gradpc, 
+       to_char(dependente.dat_nasct_dpdte,'DD/MM/YYYY'), 
+       participante_fss.num_matr_partf, 
+       empregado.num_cpf_emprg, 
+       empregado.nom_emprg, 
+       to_char(empregado.dat_nascm_emprg,'DD/MM/YYYY'), 
+       grau_dependencia.cod_gradpc, 
+       grau_dependencia.dcr_gradpc
+  FROM DEPENDENTE, EMPRG_DPDTE, PARTICIPANTE_FSS, EMPREGADO, ADESAO_PLANO_PARTIC_FSS, GRAU_DEPENDENCIA 
+ WHERE adesao_plano_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       dependente.num_idntf_dpdte = emprg_dpdte.num_idntf_dpdte AND
+       emprg_dpdte.cod_emprs = participante_fss.cod_emprs AND
+       emprg_dpdte.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       empregado.num_rgtro_emprg = emprg_dpdte.num_rgtro_emprg AND
+       empregado.cod_emprs = emprg_dpdte.cod_emprs AND
+       grau_dependencia.cod_gradpc = emprg_dpdte.cod_gradpc AND
+       adesao_plano_partic_fss.num_plbnf in (4,6,10) AND
+       adesao_plano_partic_fss.cod_tppcp in (1,2,3,4) AND
+       adesao_plano_partic_fss.cod_sitpar in (1,2,4,7,8,9,10,11,16,22,23,24,27,30) AND
+       emprg_dpdte.cod_gradpc in (1,2,3,4,9,10,11,17,19,21,22,23,24,25)
+
+
+  

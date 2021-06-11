@@ -1,0 +1,31 @@
+SELECT participante_fss.num_matr_partf, 
+       empregado.num_cpf_emprg, 
+       empregado.cod_emprs, 
+       decode(empregado.cod_sexo_emprg,'M',1,'F',2,0), 
+       empregado.cod_estcv_emprg, 
+       adesao_plano_partic_fss.cod_tppcp, 
+       to_char(empregado.dat_nascm_emprg,'DD/MM/YYYY'), 
+       tipo_particip_fss.dcr_tppcp, 
+       adesao_plano_partic_fss.cod_sitpar, 
+       sit_particip_fss.dcr_sitpar, 
+       adesao_plano_partic_fss.num_plbnf, 
+       plano_beneficio_fss.dcr_plbnf, 
+       pct_ctb_indiv_partic_fss.pct_ctb_pctipr, 
+       to_char(empregado.dat_admss_emprg,'DD/MM/YYYY'), 
+       to_char(adesao_plano_partic_fss.dat_ini_adplpr,'DD/MM/YYYY'), 
+       to_char(participante_fss.dat_vncfdc_partf,'DD/MM/YYYY'), 
+       to_char(empregado.dat_deslg_emprg,'DD/MM/YYYY'), 
+       empregado.vlr_salar_emprg
+  FROM PCT_CTB_INDIV_PARTIC_FSS, EMPREGADO, PARTICIPANTE_FSS, SIT_PARTICIP_FSS, TIPO_PARTICIP_FSS, ADESAO_PLANO_PARTIC_FSS, PLANO_BENEFICIO_FSS 
+ WHERE empregado.cod_emprs = participante_fss.cod_emprs AND
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       participante_fss.num_matr_partf = pct_ctb_indiv_partic_fss.num_matr_partf AND
+       participante_fss.num_matr_partf = adesao_plano_partic_fss.num_matr_partf AND
+       adesao_plano_partic_fss.cod_tppcp = tipo_particip_fss.cod_tppcp AND
+       adesao_plano_partic_fss.cod_sitpar = sit_particip_fss.cod_sitpar AND
+       adesao_plano_partic_fss.num_plbnf = plano_beneficio_fss.num_plbnf AND
+       adesao_plano_partic_fss.dat_fim_adplpr is null AND
+       adesao_plano_partic_fss.num_plbnf in (11) AND
+       empregado.cod_emprs = 890 AND
+       participante_fss.num_matr_partf is not null 
+  

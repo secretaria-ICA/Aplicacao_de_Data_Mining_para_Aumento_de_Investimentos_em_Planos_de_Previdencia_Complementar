@@ -1,0 +1,33 @@
+SELECT DISTINCT participante_fss.cod_emprs, 
+       empregado.num_rgorig_emprg, 
+       participante_fss.num_matr_partf, 
+       empregado.nom_emprg, 
+       mov_cont_partic_fss.mes_refer_mvcpr, 
+       mov_cont_partic_fss.ano_refer_mvcpr, 
+       sum(mov_cont_partic_fss.vlr_mvcpr), 
+       plano_beneficio_fss.dcr_plbnf, 
+       tipo_particip_fss.dcr_tppcp, 
+       sit_particip_fss.dcr_sitpar, 
+       verba_fss.dcr_vrbfss
+  FROM EMPREGADO, PARTICIPANTE_FSS, MOV_CONT_PARTIC_FSS, VERBA_FSS, ADESAO_PLANO_PARTIC_FSS, PLANO_BENEFICIO_FSS, TIPO_PARTICIP_FSS, SIT_PARTICIP_FSS 
+ WHERE plano_beneficio_fss.num_plbnf = adesao_plano_partic_fss.num_plbnf AND
+       empregado.cod_emprs = participante_fss.cod_emprs AND
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       mov_cont_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       participante_fss.num_matr_partf = empregado.num_matr_partf AND
+       mov_cont_partic_fss.num_matr_partf = empregado.num_matr_partf AND
+       verba_fss.num_vrbfss = mov_cont_partic_fss.num_vrbfss AND
+       adesao_plano_partic_fss.num_matr_partf = empregado.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = mov_cont_partic_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_plbnf in (4,6,10) AND
+       adesao_plano_partic_fss.cod_tppcp in (1,2,3,4) AND
+       (verba_fss.num_vrbfss in (10023,10025,10085,10087,10160,10162,10235,10237,10297,10299,10301,10305,10373,10375,10401,10435,10437,10495,10497,12401,12501,14501,14601,16601,16701,19301,19305,19401,20018,20020,20080,20082,20155,20157,20227,20229,20292,20294,20301,20368,20370) OR
+        verba_fss.num_vrbfss in (20401,20430,20432,20490,20492,22401,22501,24501,24601,26601,26701,29301,29401,40300,40302,50301,50305,50401,52401,52501,54501,54601,56601,56701,59301,59305,59401)) AND
+       verba_fss.dcr_vrbfss not like '%AVULSA%' AND
+       adesao_plano_partic_fss.cod_tppcp = tipo_particip_fss.cod_tppcp AND
+       adesao_plano_partic_fss.cod_sitpar = sit_particip_fss.cod_sitpar AND
+       mov_cont_partic_fss.ano_refer_mvcpr = 2020 AND
+       mov_cont_partic_fss.mes_refer_mvcpr = 10 
+GROUP BY participante_fss.cod_emprs, empregado.num_rgorig_emprg, participante_fss.num_matr_partf, empregado.nom_emprg, mov_cont_partic_fss.mes_refer_mvcpr, mov_cont_partic_fss.ano_refer_mvcpr, plano_beneficio_fss.dcr_plbnf, tipo_particip_fss.dcr_tppcp, sit_particip_fss.dcr_sitpar, verba_fss.dcr_vrbfss 
+ 

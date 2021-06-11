@@ -1,0 +1,21 @@
+SELECT DISTINCT empregado.cod_emprs, 
+       hist_part_capit_fss.num_matr_partf, 
+       empregado.num_cpf_emprg, 
+       empregado.nom_emprg, 
+       hist_part_capit_fss.num_plbnf, 
+       hist_part_capit_fss.pct_ctb_hpcap, 
+       hist_part_capit_fss.dat_inic_hpcap, 
+       hist_part_capit_fss.dat_fim_hpcap
+  FROM HIST_PART_CAPIT_FSS, PARTICIPANTE_FSS, EMPREGADO, ADESAO_PLANO_PARTIC_FSS 
+ WHERE empregado.cod_emprs = participante_fss.cod_emprs AND
+       empregado.num_rgtro_emprg = participante_fss.num_rgtro_emprg AND
+       empregado.num_matr_partf = participante_fss.num_matr_partf AND
+       hist_part_capit_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_matr_partf = participante_fss.num_matr_partf AND
+       adesao_plano_partic_fss.num_plbnf = hist_part_capit_fss.num_plbnf AND
+       hist_part_capit_fss.tip_movim_hpcap = 2 AND
+       hist_part_capit_fss.num_plbnf in (4,6,10) AND
+       adesao_plano_partic_fss.cod_tppcp in (1,2,3,4) AND
+       (hist_part_capit_fss.num_tpcnt in (1,25,208,214,514,517,818,821,1122,1125,1238,1252,1285,1390,1403,1496,1561,1575,1623,1637,1685,1699,1747,1761,1809,1823,1871,1885,1933,1947,1995,2009,2059,2073,2123,2137,2185,2199,2249,2263,2309,2323,2369,2383,2429,2443,5101,5206) OR
+        hist_part_capit_fss.num_tpcnt in (5310,5416,5520,5600,5703)) AND
+       hist_part_capit_fss.pct_ctb_hpcap >= 1 
