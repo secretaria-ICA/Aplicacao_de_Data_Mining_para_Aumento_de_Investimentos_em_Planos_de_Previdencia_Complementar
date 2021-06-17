@@ -1,8 +1,8 @@
 # APLICAÇÃO DE DATA MINING PARA AUMENTO DE INVESTIMENTOS EM PLANOS DE PREVIDÊNCIA COMPLEMENTAR
 
 #### Aluno: [RICARDO LEMOS CAMPOS](https://github.com/rlcampos/Projeto-Final_BI-Master-2018.2_Ricardo-Campos)
-#### Orientador(/a/es/as): [MANOELA KOHLER](https://github.com/manoelakohler).
-#### Co-orientador(/a/es/as): [FELIPE BORGES](https://github.com/FelipeBorgesC).
+#### Orientadora: [MANOELA KOHLER](https://github.com/manoelakohler).
+#### Co-orientador: [FELIPE BORGES](https://github.com/FelipeBorgesC).
 
 
 ---
